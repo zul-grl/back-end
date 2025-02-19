@@ -1,6 +1,3 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
 const Foods = [
   {
     id: 1,
@@ -73,16 +70,4 @@ const Foods = [
       "Fluffy pancakes stacked with fruits, cream, syrup, and powdered sugar.",
   },
 ];
-
-const app = express();
-const port = 4000;
-app.use(bodyParser());
-// app.use(cors());
-// app.use("/auth");
-// app.use("/food");
-// app.use("/food-category");
-// app.use("/food-order");
-app.get("/", cors(), (req, res) => {
-  res.send(Foods);
-});
-app.listen(port);
+export default Foods;
