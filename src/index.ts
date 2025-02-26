@@ -1,24 +1,31 @@
 import Foods from "./database/Food";
-import { getMovies } from "./database/mongodb";
 import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
-// const bodyParser = require("body-parser");
-// const express = require("express");
+import { createFoods } from "./database/CreateFoods";
+import { getStudents } from "./database/mongodb";
 const app = express();
 const port = 4000;
-app.use(bodyParser());
+app.use(bodyParser.json());
 // app.use(cors());
 // app.use("/auth");
 // app.use("/food");
 // app.use("/food-category");
 // app.use("/food-order");
-app.get("/movies", cors(), async (req, res) => {
+app.post("/foods", cors(), async (req, res) => {
   try {
-    const movies = await getMovies();
-    res.status(200).json({ movies: movies });
-  } catch {
-    res.status(500);
+    const foods = await createFoods();
+    res.status(201).json({ foods: foods });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to create foods" });
+  }
+});
+app.get("/students", cors(), async (req, res) => {
+  try {
+    const students = await getStudents();
+    res.status(200).json({ students: students });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get students" });
   }
 });
 app.listen(port);
